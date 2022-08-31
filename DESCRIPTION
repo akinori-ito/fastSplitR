@@ -1,0 +1,14 @@
+Package: fastSplitR
+Title: A simple and fast string split function for R
+Version: 0.0.0.9000
+Authors@R: 
+    person("Akinori", "Ito", , "aito@spcom.ecei.tohoku.ac.jp", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package provides a simple and fast string split function.
+  It takes only one string and one character as the delimiter.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+LinkingTo: Rcpp
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
