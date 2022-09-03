@@ -41,7 +41,7 @@ Unit: milliseconds
    100
 ```
 
-However, since `fastSplit` converts the input string into UTF-8, split the string, and converts the split vector back to the original encoding, it becomes slower when no encoding is specified.
+However, since `fastSplit` converts the input string into UTF-8, split the string, and converts the split vector back to the original encoding if the original encoding is not UTF-8 nor ASCII (including the case when no encoding is specified), it becomes slower.
 
 ```{r}
 > microbenchmark({dummy<-fastSplit(s," ")}, unit="ms")
