@@ -22,9 +22,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fastSplitZ
+CharacterVector fastSplitZ(String s);
+RcppExport SEXP _fastSplitR_fastSplitZ(SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< String >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastSplitZ(s));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastSplitR_fastSplitC", (DL_FUNC) &_fastSplitR_fastSplitC, 2},
+    {"_fastSplitR_fastSplitZ", (DL_FUNC) &_fastSplitR_fastSplitZ, 1},
     {NULL, NULL, 0}
 };
 

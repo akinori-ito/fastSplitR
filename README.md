@@ -6,6 +6,8 @@ This package provides a simple and fast string split function.  It takes only on
 library(fastSplitR)
 > fastSplit("This is a pen"," ")
 [1] "This" "is"   "a"    "pen" 
+> fastSplit("This is a pen","")
+[1] "T" "h" "i" "s" " " "i" "s" " " "a" " " "p" "e" "n"
 > fastSplit(c("This is a pen","I am a boy")," ")
 [1] "This" "is"   "a"    "pen" 
 Warning message:

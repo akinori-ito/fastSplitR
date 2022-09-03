@@ -1,6 +1,6 @@
 #' Splits the input string using the delimiter character.
 #' @param s A string
-#' @param delim A delimiter string, which should be one character.
+#' @param delim A delimiter string, which should be no more than one character.
 #' @return A character vecter
 #' @export
 fastSplit <- function(s,delim) {
@@ -12,7 +12,7 @@ fastSplit <- function(s,delim) {
     s <- s[1]
   }
   if (nchar(delim) == 0) {
-    error("fastSplit: delim should be one character")
+    return(fastSplitZ(s))
   }
   if (nchar(delim) > 1) {
     warning("fastSplit; only the first character of delim will be used as the delimiter")
