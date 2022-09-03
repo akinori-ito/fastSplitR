@@ -5,6 +5,10 @@ fastSplitC <- function(s, delim) {
     .Call(`_fastSplitR_fastSplitC`, s, delim)
 }
 
+fastSplitM <- function(s, delim) {
+    .Call(`_fastSplitR_fastSplitM`, s, delim)
+}
+
 fastSplitZ <- function(s) {
     .Call(`_fastSplitR_fastSplitZ`, s)
 }

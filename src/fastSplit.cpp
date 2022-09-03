@@ -46,24 +46,20 @@ CharacterVector fastSplitC(String s, String delim) {
      if (utf_bytes(c) != 1) {
        error("Delimiter should be 1-byte character");
      }
-     bool *begin = new bool[slen];
      int *substrlen = new int[slen];
      int nelem = 0;
      int i;
      for (i = 0; i < slen; i++) {
-        begin[i] = false;
         substrlen[i] = 0;
      }
      for (i = 0; i < slen; i++) {
         if (cs[i] == c) {
-            begin[b] = true;
             substrlen[b] = i-b;
             b = i+1;
             nelem++;
         }
      }
      if (b < i) {
-        begin[b] = true;
         substrlen[b] = i-b;
         nelem++;
      }
@@ -75,9 +71,53 @@ CharacterVector fastSplitC(String s, String delim) {
         v(n) = buf.buf;
         n++;
      } 
-     delete[] begin;
      delete[] substrlen;
      return v;
+}
+
+// delim can be multibyte character string
+// [[Rcpp::export]]
+CharacterVector fastSplitM(String s, String delim) {
+  const char *cs = s.get_cstring();
+  int slen = strlen(cs);
+  const char *cdelim = delim.get_cstring();
+  int dlen = strlen(cdelim);
+  int *substrlen = new int[slen];
+  int i;
+  for (i = 0; i < slen; i++) {
+    substrlen[i] = 0;
+  }
+  int b = 0;
+  int nelem = 0;
+  i = 0;
+  while (i < slen) {
+    if (strncmp(&cs[i],cdelim,dlen) == 0) {
+      substrlen[b] = i-b;
+      b = i+dlen;
+      i = b;
+      nelem++;
+    } else {
+      int ch = utf_bytes(cs[i]);
+      if (ch < 0) {
+        error("Invalid UTF-8 sequence");
+      }
+      i += ch;
+    }
+  }
+  if (b < i) {
+    substrlen[b] = i-b;
+    nelem++;
+  }
+  StrBuffer buf;
+  CharacterVector v(nelem);
+  int n = 0;
+  for (i = 0; i < slen; i += substrlen[i]+dlen) {
+    buf.copy(cs,i,substrlen[i]);
+    v(n) = buf.buf;
+    n++;
+  } 
+  delete[] substrlen;
+  return v;
 }
 
 // character-by-character split
